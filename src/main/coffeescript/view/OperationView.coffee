@@ -4,6 +4,7 @@ class OperationView extends Backbone.View
   events: {
     'submit .sandbox'         : 'submitOperation'
     'click .submit'           : 'submitOperation'
+    'click .btn-restore'      : 'restoreParameterDefaults'
     'click .response_hider'   : 'hideResponse'
     'click .toggleOperation'  : 'toggleOperationContent'
     'mouseenter .api-ic'      : 'mouseEnter'
@@ -78,6 +79,16 @@ class OperationView extends Backbone.View
             for o in v
               @model.oauth.scopes.push o
 
+
+    #Despegar examples
+    if typeof @model.operation['x-examples'] isnt 'undefined'
+      @model.examples = []
+      for code, value of @model.operation['x-examples']
+        @model.examples.push value
+
+    if typeof @model.examples is 'undefined'
+      @model.examples = []
+
     if typeof @model.responses isnt 'undefined'
       @model.responseMessages = []
       for code, value of @model.responses
@@ -149,6 +160,9 @@ class OperationView extends Backbone.View
     @addParameter param, contentTypeModel.consumes for param in @model.parameters
 
     # Render each response code
+    @addRequestExample requestExample, $('.operation-params', $(@el)) for requestExample in @model.examples
+
+    # Render each response code
     @addStatusCode statusCode for statusCode in @model.responseMessages
 
     @
@@ -159,10 +173,28 @@ class OperationView extends Backbone.View
     paramView = new ParameterView({model: param, tagName: 'tr', readOnly: @model.isReadOnly})
     $('.operation-params', $(@el)).append paramView.render().el
 
+  addRequestExample: (requestExample, parametersView) ->
+    # Render status codes
+    requestExampleView = new RequestExampleView({model: requestExample, tagName: 'li', className: 'badge '+@model.method, parametersView: parametersView})
+    $('.operation-request-examples', $(@el)).append requestExampleView.render().el
+
   addStatusCode: (statusCode) ->
     # Render status codes
     statusCodeView = new StatusCodeView({model: statusCode, tagName: 'tr'})
     $('.operation-status', $(@el)).append statusCodeView.render().el
+
+  restoreParameterDefaults: (e) ->
+    e?.preventDefault()
+    for param in @model.parameters
+      defaultVal = (param.default || param.defaultValue)
+      if ( typeof defaultVal is 'undefined' )
+        defaultVal = ""
+
+      inp = $("input[name="+param.name+"]", $(@el))
+      inp?.val(defaultVal)
+      inp = $("textarea[name="+param.name+"]", $(@el))
+      inp?.val(defaultVal)
+    
 
   submitOperation: (e) ->
     e?.preventDefault()

@@ -47,9 +47,15 @@
           <div class="response-content-type" />
         {{/if}}
         <form accept-charset='UTF-8' class='sandbox'>
+          {{#if examples}}
+          <div style='margin:0;padding:0;display:inline'></div>
+            <h4>Request Examples</h4>
+            <ul class="operation-request-examples">
+            </ul>
+          {{/if}}
           <div style='margin:0;padding:0;display:inline'></div>
           {{#if parameters}}
-          <h4>Parameters</h4>
+          <h4 style="display:inline;">Parameters</h4><a href="#" title="Restore parameters to defaults" class="btn btn-restore {{method}} btn-mini"><i class="icon-white icon-repeat"></i></a>
           <table class='fullwidth'>
           <thead>
             <tr>

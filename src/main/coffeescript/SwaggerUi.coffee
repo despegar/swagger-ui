@@ -47,7 +47,8 @@ class SwaggerUi extends Backbone.Router
 
   # Event handler for when url/key is received from user
   updateSwaggerUi: (data) ->
-    @options.url = data.url
+    if data.url
+      @options.url = data.url
     @load()
 
   # Create an api and render
