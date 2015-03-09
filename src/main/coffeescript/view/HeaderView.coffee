@@ -9,6 +9,7 @@ class HeaderView extends Backbone.View
 
   initialize: ->
 
+  ###
   showPetStore: (e) ->
     @trigger(
       'update-swagger-ui'
@@ -20,16 +21,19 @@ class HeaderView extends Backbone.View
       'update-swagger-ui'
       {url:"http://api.wordnik.com/v4/resources.json"}
     )
+  ###
 
   showCustomOnKeyup: (e) ->
     @showCustom() if e.keyCode is 13
 
   showCustom: (e) ->
     e?.preventDefault()
+    ###
     @trigger(
       'update-swagger-ui'
       {url: $('#input_baseUrl').val(), apiKey: $('#input_apiKey').val()}
     )
+    ###
 
   update: (url, apiKey, trigger = false) ->
     $('#input_baseUrl').val url

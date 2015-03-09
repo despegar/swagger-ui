@@ -123,7 +123,7 @@
 .swagger-section .swagger-ui-wrap {
   line-height: 1;
   font-family: "Droid Sans", sans-serif;
-  max-width: 960px;
+  max-width: 1502px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -273,6 +273,9 @@
 .swagger-section .swagger-ui-wrap .icon-btn {
   cursor: pointer;
 }
+.swagger-section .swagger-ui-wrap .info {
+  padding: 0px 20px;
+}
 .swagger-section .swagger-ui-wrap .info_title {
   padding-bottom: 10px;
   font-weight: bold;
@@ -316,6 +319,10 @@
   padding: 3px 0px;
   line-height: 1.4em;
   color: #333333;
+}
+.swagger-section .swagger-ui-wrap .footer {
+  padding: 0px 20px;
+  margin-bottom: 20px;
 }
 .swagger-section .swagger-ui-wrap form.formtastic fieldset.inputs ol li.string input,
 .swagger-section .swagger-ui-wrap form.formtastic fieldset.inputs ol li.url input,
@@ -589,6 +596,7 @@
 .swagger-section .swagger-ui-wrap ul#resources {
   font-family: "Droid Sans", sans-serif;
   font-size: 0.9em;
+  padding: 0px 20px;
 }
 .swagger-section .swagger-ui-wrap ul#resources li.resource {
   border-bottom: 1px solid #dddddd;
