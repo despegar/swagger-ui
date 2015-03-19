@@ -1,3 +1,4 @@
+
 class OperationView extends Backbone.View
   invocationUrl: null
 
@@ -48,6 +49,7 @@ class OperationView extends Backbone.View
   render: ->
     isMethodSubmissionSupported = jQuery.inArray(@model.method, @model.supportedSubmitMethods()) >= 0
     @model.isReadOnly = true unless isMethodSubmissionSupported
+    @model.sandboxable = @model.operation['x-sandbox']
 
     # 1.2 syntax for description was `notes`
     @model.description = (@model.description || @model.notes)
