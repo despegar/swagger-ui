@@ -23,9 +23,12 @@
         {{#if deprecated}}
             <h4>Warning: Deprecated</h4>
         {{/if}}
-        {{#if description}}
+        {{#if externalDocs }}
+          <h4><a href="{{externalDocs.url}}">Implementation Notes</a></h4>
+        {{/if}}
+        {{#if description }}
         <h4>Implementation Notes</h4>
-        <p class="markdown">{{{description}}}</p>
+          <p class="markdown">{{{description}}}</p>
         {{/if}}
         {{#oauth}}
         <div class="auth">

@@ -88,6 +88,8 @@ class OperationView extends Backbone.View
       for code, value of @model.operation['x-examples']
         @model.examples.push value
 
+    @model.externalDocs = @model.operation.externalDocs
+
     if typeof @model.examples is 'undefined'
       @model.examples = []
 
