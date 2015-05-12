@@ -9,6 +9,9 @@
           <span class='path'>
           <a href='#!/{{encodedParentId}}/{{nickname}}' class="toggleOperation {{#if deprecated}}deprecated{{/if}}">{{path}}</a>
           </span>
+          {{#if sandboxable}}
+            <span class='badge' title='Supports sandbox'>S</span>
+          {{/if}}
         </h3>
         <ul class='options'>
           <li>
@@ -20,9 +23,12 @@
         {{#if deprecated}}
             <h4>Warning: Deprecated</h4>
         {{/if}}
+        {{#if externalDocs }}
+          <h4><a href="{{externalDocs.url}}">Implementation Notes</a></h4>
+        {{/if}}
         {{#if description}}
         <h4>Implementation Notes</h4>
-        <div class="markdown">{{{description}}}</div>
+          <p class="markdown">{{{description}}}</p>
         {{/if}}
         {{#oauth}}
         <div class="auth">
@@ -47,9 +53,15 @@
           <div class="response-content-type" />
         {{/if}}
         <form accept-charset='UTF-8' class='sandbox'>
+          {{#if examples}}
+          <div style='margin:0;padding:0;display:inline'></div>
+            <h4>Request Examples</h4>
+            <ul class="operation-request-examples">
+            </ul>
+          {{/if}}
           <div style='margin:0;padding:0;display:inline'></div>
           {{#if parameters}}
-          <h4>Parameters</h4>
+          <h4 style="display:inline;">Parameters</h4><a href="#" title="Restore parameters to defaults" class="btn btn-restore {{method}} btn-mini"><i class="icon-white icon-repeat"></i></a>
           <table class='fullwidth'>
           <thead>
             <tr>

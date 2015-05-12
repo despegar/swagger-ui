@@ -6,6 +6,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   events: {
     'submit .sandbox'         : 'submitOperation',
     'click .submit'           : 'submitOperation',
+    'click .btn-restore'      : 'restoreParameterDefaults',
     'click .response_hider'   : 'hideResponse',
     'click .toggleOperation'  : 'toggleOperationContent',
     'mouseenter .api-ic'      : 'mouseEnter',
@@ -68,6 +69,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     if (!isMethodSubmissionSupported) {
       this.model.isReadOnly = true;
     }
+    this.model.sandboxable = this.model.operation['x-sandbox'];
     this.model.description = this.model.description || this.model.notes;
     this.model.oauth = null;
     modelAuths = this.model.authorizations || this.model.security;
@@ -116,6 +118,16 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
         }
       }
     }
+    //Despegar examples
+    this.model.examples = [];
+    if (typeof this.model.operation['x-examples'] !== 'undefined') {
+      for (var examplecode in this.model.operation['x-examples']){
+        this.model.examples.push(this.model.operation['x-examples'][examplecode]);
+      }
+    }
+
+    this.model.externalDocs = this.model.operation.externalDocs;
+
     if (typeof this.model.responses !== 'undefined') {
       this.model.responseMessages = [];
       ref2 = this.model.responses;
