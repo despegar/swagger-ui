@@ -7,13 +7,12 @@ SwaggerUi.Views.RequestExampleView = Backbone.View.extend({
   },
 
   render: function(){
-    $(this.el).html(Handlebars.templates.resource(this.model));
+    $(this.el).html(Handlebars.templates.request_example(this.model));
+    return this;
   },
 
   fillParamsWithExample: function(e) {
-    if (e !== null) {
-      e.preventDefault();
-    }
+    if (e) { e.preventDefault(); }
     $('a.btn-restore', $(this.el.parentNode.parentNode)).click();
 
     for (var uriParamName in this.model.uriParams) {

@@ -21055,7 +21055,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   // Note: copied from CoffeeScript compiled file
   // TODO: redactor
   render: function() {
-    var a, auth, auths, code, contentTypeModel, isMethodSubmissionSupported, k, key, l, len, len1, len2, len3, len4, m, modelAuths, n, o, p, param, q, ref, ref1, ref2, ref3, ref4, ref5, responseContentTypeView, responseSignatureView, schema, schemaObj, scopeIndex, signatureModel, statusCode, successResponse, type, v, value;
+    var a, auth, auths, code, contentTypeModel, isMethodSubmissionSupported, k, key, l, len, len1, len2, len3, len4, m, modelAuths, n, o, p, param, q, ref, ref1, ref2, ref3, ref4, ref5, responseContentTypeView, responseSignatureView, schema, schemaObj, scopeIndex, signatureModel, statusCode, successResponse, type, v, value, ref6, r, len5, example, parametersView, statusCodesView, examplesView;
     isMethodSubmissionSupported = jQuery.inArray(this.model.method, this.model.supportedSubmitMethods()) >= 0;
     if (!isMethodSubmissionSupported) {
       this.model.isReadOnly = true;
@@ -21112,8 +21112,8 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     //Despegar examples
     this.model.examples = [];
     if (typeof this.model.operation['x-examples'] !== 'undefined') {
-      for (var examplecode in this.model.operation['x-examples']){
-        this.model.examples.push(this.model.operation['x-examples'][examplecode]);
+      for (var i=0; i < this.model.operation['x-examples'].length; i++){
+        this.model.examples.push(this.model.operation['x-examples'][i]);
       }
     }
 
@@ -21208,19 +21208,28 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     });
     $('.response-content-type', $(this.el)).append(responseContentTypeView.render().el);
     ref4 = this.model.parameters;
+    parametersView = $('.operation-params', $(this.el));
     for (p = 0, len3 = ref4.length; p < len3; p++) {
       param = ref4[p];
-      this.addParameter(param, contentTypeModel.consumes);
+      this.addParameter(param, contentTypeModel.consumes, parametersView);
     }
     ref5 = this.model.responseMessages;
+    statusCodesView = $('.operation-status', $(this.el));
     for (q = 0, len4 = ref5.length; q < len4; q++) {
       statusCode = ref5[q];
-      this.addStatusCode(statusCode);
+      this.addStatusCode(statusCodesView, statusCode);
+    }
+    ref6 = this.model.examples;
+    len5 = ref6.length;
+    examplesView = $('.operation-request-examples', $(this.el));
+    for (r = 0; r < len5; r++) {
+      example = ref6[r];
+      this.addRequestExample(example, examplesView, parametersView);
     }
     return this;
   },
 
-  addParameter: function(param, consumes) {
+  addParameter: function(param, consumes, parametersView) {
     // Render a parameter
     param.consumes = consumes;
     var paramView = new SwaggerUi.Views.ParameterView({
@@ -21228,17 +21237,53 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       tagName: 'tr',
       readOnly: this.model.isReadOnly
     });
-    $('.operation-params', $(this.el)).append(paramView.render().el);
+    parametersView.append(paramView.render().el);
   },
 
-  addStatusCode: function(statusCode) {
+  addRequestExample: function(requestExample, examplesView, paramsView) {
+    // Render examples
+    var requestExampleView = new SwaggerUi.Views.RequestExampleView({
+      model: requestExample,
+      tagName: 'li',
+      className: 'badge '+this.model.method,
+      parametersView: paramsView
+    });
+    examplesView.append(requestExampleView.render().el);
+  },
+
+  addStatusCode: function(statusCodesView, statusCode) {
     // Render status codes
     var statusCodeView = new SwaggerUi.Views.StatusCodeView({
       model: statusCode,
       tagName: 'tr',
       router: this.router
     });
-    $('.operation-status', $(this.el)).append(statusCodeView.render().el);
+    statusCodesView.append(statusCodeView.render().el);
+  },
+
+  restoreParameterDefaults: function(e) {
+    var param, i, defaultVal, inp;
+    if (e) {
+      e.preventDefault();
+    }
+    var el = $(this.el);
+    var len = this.model.parameters.length;
+    for (i = 0; i < len; i++) {
+      param = this.model.parameters[i];
+      defaultVal = (param.default || param.defaultValue);
+      if ( typeof defaultVal === 'undefined' ){
+        defaultVal = '';
+      }
+
+      inp = $('input[name='+param.name+']', el);
+      if ( inp ){
+        inp.val(defaultVal);
+      }
+      inp = $('textarea[name='+param.name+']', el);
+      if ( inp ){
+        inp.val(defaultVal);
+      }
+    }
   },
 
   // Note: copied from CoffeeScript compiled file
@@ -21851,13 +21896,12 @@ SwaggerUi.Views.RequestExampleView = Backbone.View.extend({
   },
 
   render: function(){
-    $(this.el).html(Handlebars.templates.resource(this.model));
+    $(this.el).html(Handlebars.templates.request_example(this.model));
+    return this;
   },
 
   fillParamsWithExample: function(e) {
-    if (e !== null) {
-      e.preventDefault();
-    }
+    if (e) { e.preventDefault(); }
     $('a.btn-restore', $(this.el.parentNode.parentNode)).click();
 
     for (var uriParamName in this.model.uriParams) {
