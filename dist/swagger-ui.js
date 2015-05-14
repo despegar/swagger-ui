@@ -1,6 +1,6 @@
 /**
  * swagger-ui - Swagger UI is a dependency-free collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API
- * @version v2.1.2-M2
+ * @version v2.1.5-M2
  * @link http://swagger.io
  * @license Apache 2.0
  */
@@ -98,7 +98,9 @@ window.SwaggerUi = Backbone.Router.extend({
     if (url && url.indexOf('http') !== 0) {
       url = this.buildUrl(window.location.href.toString(), url);
     }
-
+    if(this.api) {
+      this.options.authorizations = this.api.clientAuthorizations;
+    }
     this.options.url = url;
     this.headerView.update(url);
 
@@ -521,7 +523,11 @@ Handlebars.registerHelper('renderTextParam', function(param) {
         result += ' placeholder=\'Provide multiple values in new lines' + (param.required ? ' (at least one required).' : '.') + '\'>';
         result += defaultValue + '</textarea>';
     } else {
-        result = '<input class=\'parameter\'' + (param.required ? ' class=\'required\'' : '') + ' minlength=\'' + (param.required ? 1 : 0) + '\'';
+        var parameterClass = 'parameter';
+        if(param.required) {
+          parameterClass += ' required';
+        }
+        result = '<input class=\'' + parameterClass + '\' minlength=\'' + (param.required ? 1 : 0) + '\'';
         result += ' name=\'' + param.name +'\' placeholder=\'' + (param.required ? '(required)' : '') + '\'';
         result += ' type=\'' + type + '\' value=\'' + defaultValue + '\'/>';
     }
@@ -848,7 +854,11 @@ this["Handlebars"]["templates"]["param_list"] = Handlebars.template({"1":functio
     + "'>"
     + escapeExpression(((helper = (helper = helpers.value || (depth0 != null ? depth0.value : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"value","hash":{},"data":data}) : helper)))
     + "</option>\n";
-},"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+},"22":function(depth0,helpers,partials,data) {
+  return "<strong>";
+  },"24":function(depth0,helpers,partials,data) {
+  return "</strong>";
+  },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, helperMissing=helpers.helperMissing, functionType="function", escapeExpression=this.escapeExpression, buffer = "";
   stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.required : depth0), {"name":"if","hash":{},"fn":this.program(1, data),"inverse":this.program(3, data),"data":data});
   if (stack1 != null) { buffer += stack1; }
@@ -866,7 +876,11 @@ this["Handlebars"]["templates"]["param_list"] = Handlebars.template({"1":functio
   stack1 = helpers.each.call(depth0, ((stack1 = (depth0 != null ? depth0.allowableValues : depth0)) != null ? stack1.descriptiveValues : stack1), {"name":"each","hash":{},"fn":this.program(17, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "  </select>\n</td>\n<td class=\"markdown\">";
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.required : depth0), {"name":"if","hash":{},"fn":this.program(22, data),"inverse":this.noop,"data":data});
+  if (stack1 != null) { buffer += stack1; }
   stack1 = ((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"description","hash":{},"data":data}) : helper));
+  if (stack1 != null) { buffer += stack1; }
+  stack1 = helpers['if'].call(depth0, (depth0 != null ? depth0.required : depth0), {"name":"if","hash":{},"fn":this.program(24, data),"inverse":this.noop,"data":data});
   if (stack1 != null) { buffer += stack1; }
   buffer += "</td>\n<td>";
   stack1 = ((helper = (helper = helpers.paramType || (depth0 != null ? depth0.paramType : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"paramType","hash":{},"data":data}) : helper));
@@ -1102,7 +1116,7 @@ this["Handlebars"]["templates"]["status_code"] = Handlebars.template({"1":functi
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
   var stack1, helper, functionType="function", helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression, buffer = "<td width='15%' class='code'>"
     + escapeExpression(((helper = (helper = helpers.code || (depth0 != null ? depth0.code : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"code","hash":{},"data":data}) : helper)))
-    + "</td>\n<td>";
+    + "</td>\n<td class=\"markdown\">";
   stack1 = ((helper = (helper = helpers.message || (depth0 != null ? depth0.message : depth0)) != null ? helper : helperMissing),(typeof helper === functionType ? helper.call(depth0, {"name":"message","hash":{},"data":data}) : helper));
   if (stack1 != null) { buffer += stack1; }
   buffer += "</td>\n<td width='50%'><span class=\"model-signature\" /></td>\n<td class=\"headers\">\n  <table>\n    <tbody>\n";
@@ -20917,7 +20931,7 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
       } else {
 
         // Default validator
-        if(window.location.protocol.startsWith('http')) {
+        if(window.location.protocol.indexOf('http') === 0) {
           this.model.validatorUrl = window.location.protocol + '//online.swagger.io/validator';
         }
       }
