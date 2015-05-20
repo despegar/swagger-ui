@@ -28,7 +28,7 @@ SwaggerUi.Views.RequestExampleView = Backbone.View.extend({
     }
 
     var textArea = $('textarea', this.options.parametersView);
-    if ((typeof this.model.body !== 'undefined') && $.trim(textArea.val()) === '' ){
+    if ( this.model.body && $.trim(textArea.val()) === '' ){
       textArea.val(this.model.body);
     }
   }
