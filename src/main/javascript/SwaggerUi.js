@@ -175,9 +175,13 @@ window.SwaggerUi = Backbone.Router.extend({
     if (data === undefined) {
       data = '';
     }
-    $('#message-bar').removeClass('message-fail');
-    $('#message-bar').addClass('message-success');
-    $('#message-bar').text(data);
+    var $msgbar = $('#message-bar');
+    $msgbar.removeClass('message-fail');
+    $msgbar.addClass('message-success');
+    $msgbar.html(data);
+    if(window.SwaggerTranslator) {
+      window.SwaggerTranslator.translate($msgbar);
+    }
   },
 
   // shows message in red
@@ -255,7 +259,7 @@ window.SwaggerUi.Views = {};
         });
     } else if (typeof exports === 'object') {
         // Node. Does not work with strict CommonJS, but
-        // only CommonJS-like enviroments that support module.exports,
+        // only CommonJS-like environments that support module.exports,
         // like Node.
         module.exports = factory(require('b'));
     } else {
