@@ -59,13 +59,14 @@
           log("Unable to Load SwaggerUI");
         },
         docExpansion: "none",
-        apisSorter: "alpha"
+        apisSorter: "alpha",
+        showRequestHeaders: true
       });
 
       function addApiKeyAuthorization(){
         var key = encodeURIComponent($('#input_apiKey')[0].value);
         if(key && key.trim() != "") {
-            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("X-ApiKey", key, "header"));
+            var apiKeyAuth = new SwaggerClient.ApiKeyAuthorization("X-ApiKey", key, "header");
             window.swaggerUi.api.clientAuthorizations.add("api_key", apiKeyAuth);
             //log("added key " + key);
         }
