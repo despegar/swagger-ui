@@ -7,6 +7,7 @@ How to sync with original project: https://help.github.com/articles/syncing-a-fo
 
 ###Setup remote
 1. `git remote -v`
+
    # origin  https://github.com/despegar/swagger-ui.git (fetch)
    # origin  https://github.com/despegar/swagger-ui.git (push)
 2. `git remote add upstream https://github.com/swagger-api/swagger-ui.git`
