@@ -125,23 +125,25 @@ window.SwaggerUi = Backbone.Router.extend({
       el: $('#' + this.dom_id),
       swaggerOptions: this.options,
       router: this
-    }).render();
-    this.showMessage();
-    switch (this.options.docExpansion) {
-      case 'full':
-        this.expandAll(); break;
-      case 'list':
-        this.listAll(); break;
-      default:
-        break;
-    }
-    this.renderGFM();
+    });
+    setTimeout(function (){
+      this.mainView.render();
+      this.showMessage();
+      switch (this.options.docExpansion) {
+        case 'full':
+          this.expandAll(); break;
+        case 'list':
+          this.listAll(); break;
+        default:
+          break;
+      }
+      this.renderGFM();
 
-    if (this.options.onComplete){
-      this.options.onComplete(this.api, this);
-    }
-
-    setTimeout(Docs.shebang.bind(this), 100);
+      if (this.options.onComplete){
+        this.options.onComplete(this.api, this);
+      }
+      setTimeout(Docs.shebang.bind(this), 100);
+    }.bind(this),10);
   },
 
   buildUrl: function(base, url){

@@ -77,7 +77,7 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
   // Note: copied from CoffeeScript compiled file
   // TODO: redactor
   render: function() {
-    var a, auth, auths, code, contentTypeModel, isMethodSubmissionSupported, k, key, l, len, len1, len2, len3, len4, m, modelAuths, n, o, p, param, q, ref, ref1, ref2, ref3, ref4, ref5, responseContentTypeView, responseSignatureView, schema, schemaObj, scopeIndex, signatureModel, statusCode, successResponse, type, v, value, ref6, r, len5, example, parametersView, statusCodesView, examplesView;
+    var a, auth, auths, code, contentTypeModel, isMethodSubmissionSupported, k, key, l, len, len1, len2, len3, len4, m, modelAuths, n, o, p, param, q, ref, ref1, ref2, ref3, ref4, ref5, responseContentTypeView, responseSignatureView, schema, schemaObj, scopeIndex, signatureModel, successResponse, type, v, value, ref6, r, len5, parametersView, statusCodesView, examplesView;
     isMethodSubmissionSupported = jQuery.inArray(this.model.method, this.model.supportedSubmitMethods()) >= 0;
     if (!isMethodSubmissionSupported) {
       this.model.isReadOnly = true;
@@ -237,21 +237,18 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     ref4 = this.model.parameters;
     parametersView = $('.operation-params', $(this.el));
     for (p = 0, len3 = ref4.length; p < len3; p++) {
-      param = ref4[p];
-      this.addParameter(param, contentTypeModel.consumes, parametersView);
+      this.addParameter(ref4[p], contentTypeModel.consumes, parametersView);
     }
     ref5 = this.model.responseMessages;
     statusCodesView = $('.operation-status', $(this.el));
     for (q = 0, len4 = ref5.length; q < len4; q++) {
-      statusCode = ref5[q];
-      this.addStatusCode(statusCodesView, statusCode);
+      this.addStatusCode(statusCodesView, ref5[q]);
     }
     ref6 = this.model.examples;
     len5 = ref6.length;
     examplesView = $('.operation-request-examples', $(this.el));
     for (r = 0; r < len5; r++) {
-      example = ref6[r];
-      this.addRequestExample(example, examplesView, parametersView);
+      this.addRequestExample(ref6[r], examplesView, parametersView);
     }
     return this;
   },

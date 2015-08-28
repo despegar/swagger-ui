@@ -39,7 +39,13 @@
       if (url && url.length > 1) {
         url = decodeURIComponent(url[1]);
       } else {
-        url = "${springMacroRequestContext.getContextPath()}/docs/raw?host="+encodeURIComponent(window.location.host);
+        var ctx = "${springMacroRequestContext.getContextPath()}";
+        if ( ctx == '${springMacroRequestContext.getContextPath()}' ){
+            // For local testing
+            url = 'swagger.json'
+        }else{
+            url = ctx+"/docs/raw?host="+encodeURIComponent(window.location.host);
+        }
       }
 
       // Pre load translate...
