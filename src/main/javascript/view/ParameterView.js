@@ -57,7 +57,11 @@ SwaggerUi.Views.ParameterView = Backbone.View.extend({
       $('.model-signature', $(this.el)).append(signatureView.render().el);
     }
     else {
-      $('.model-signature', $(this.el)).html(this.model.signature);
+      var shtml = this.model.signature;
+      if ( this.model.collectionFormat === 'csv' ){
+        shtml += '('+this.model.collectionFormat+')';
+      }
+      $('.model-signature', $(this.el)).html(shtml);
     }
 
     var isParam = false;
