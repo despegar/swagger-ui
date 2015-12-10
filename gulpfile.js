@@ -16,6 +16,7 @@ var header = require('gulp-header');
 var pkg = require('./package.json');
 var order = require('gulp-order');
 var jshint = require('gulp-jshint');
+var maven = require('gulp-maven-deploy');
 var banner = ['/**',
   ' * <%= pkg.name %> - <%= pkg.description %>',
   ' * @version v<%= pkg.version %>',
@@ -24,12 +25,28 @@ var banner = ['/**',
   ' */',
   ''].join('\n');
 
+var repos = require(process.env.HOME.replace(/\\/g,"/")+'/.m2/npm.json');
+
+var mavenLocal = require('./maven-config.json');
+//console.log(JSON.stringify(mavenLocal));
+
+var mavenConfig = mavenLocal;
+mavenConfig['repositories'] = repos;
+//console.log(JSON.stringify(mavenConfig));
+
 /**
  * Clean ups ./dist folder
  */
-gulp.task('clean', function() {
+gulp.task('cleanDist', function() {
   return gulp
-    .src('./dist', {read: false})
+    .src(['./dist'], {read: false})
+    .pipe(clean({force: true}))
+    .on('error', log);
+});
+ 
+gulp.task('clean', ['cleanDist'], function() {
+  return gulp
+    .src(['./jar'], {read: false})
     .pipe(clean({force: true}))
     .on('error', log);
 });
@@ -61,7 +78,7 @@ gulp.task('lint', function () {
 /**
  * Build a distribution
  */
-gulp.task('dist', ['clean','lint'], function() {
+gulp.task('dist', ['cleanDist','lint'], function() {
 
   return es.merge(
       gulp.src([
@@ -86,7 +103,7 @@ gulp.task('dist', ['clean','lint'], function() {
 /**
  * Processes less files into CSS files
  */
-gulp.task('less', ['clean'], function() {
+gulp.task('less', ['cleanDist'], function() {
 
   return gulp
     .src([
@@ -149,6 +166,47 @@ function log(error) {
   console.error(error.toString && error.toString());
 }
 
-
 gulp.task('default', ['dist', 'copy']);
 gulp.task('serve', ['connect', 'watch']);
+
+/**
+ * Copy dist to jar folder
+ */
+gulp.task('moveToJar', ['dist', 'copy'], function() {
+	setTimeout(function() {
+	  // copy dist files to jar folder
+	  gulp
+		.src(['./dist/*.js'])
+		.pipe(gulp.dest('./jar/com/despegar/library/doc/static/lib'))
+		.on('error', log);
+		
+	  gulp
+		.src(['./dist/*.html'])
+		.pipe(gulp.dest('./jar/com/despegar/library/doc'))
+		.on('error', log);
+
+	  gulp
+		.src(['./dist/**/*', '!./dist/*.*'])
+		.pipe(gulp.dest('./jar/com/despegar/library/doc/static'))
+		.on('error', log);
+		},1000);
+});
+
+gulp.task('deployM2', ['clean', 'moveToJar'], function(){
+    setTimeout(function() {
+	gulp.src('./jar')
+    .pipe(maven.deploy({
+		'config' : mavenConfig
+    }))
+	},2000);
+});
+
+gulp.task('installM2', ['clean', 'moveToJar'], function(){
+	setTimeout(function() {
+    gulp.src('./jar')
+    .pipe(maven.install({
+		'config' : mavenLocal
+    }))
+	},2000);
+});
+

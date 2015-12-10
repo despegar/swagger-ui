@@ -1,15 +1,11 @@
 {
-  "name": "swagger-ui",
-  "author": "Tony Tam <fehguy@gmail.com>",
+  "name": "despegar-swagger-ui",
+  "author": "Despegar Api <api@despegar.com>",
   "contributors": [
-    {
-      "name": "Mohsen Azimi",
-      "email": "me@azimi.me"
-    }
   ],
-  "description": "Swagger UI is a dependency-free collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API",
+  "description": "Despegar's Swagger UI fork. Is a dependency-free collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API",
   "version": "2.1.4",
-  "homepage": "http://swagger.io",
+  "homepage": "http://api.despegar.com",
   "license": "Apache-2.0",
   "main": "dist/swagger-ui.js",
   "scripts": {
@@ -18,11 +14,12 @@
     "prejshint": "gulp",
     "jshint": "jshint .",
     "pretest": "npm run jshint",
+	"jar": "gulp moveToJar",
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/swagger-api/swagger-ui.git"
+    "url": "https://github.com/despegar/swagger-ui.git"
   },
   "readmeFilename": "README.md",
   "devDependencies": {
@@ -32,6 +29,7 @@
     "event-stream": "^3.2.2",
     "express": "^4.12.0",
     "gulp": "^3.8.11",
+	"gulp-maven-deploy": "~0.2.0",
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.5.2",
     "gulp-connect": "^2.2.0",

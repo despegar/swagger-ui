@@ -1,4 +1,4 @@
-# Depegar's swagger UI
+# Despegar's Swagger UI
 
 #Sync
 How to sync with original project: https://help.github.com/articles/syncing-a-fork/
@@ -48,6 +48,10 @@ You can rebuild swagger-ui on your own to tweak it or just so you can say you di
 
 ### Development
 Use `gulp watch` to make a new build and watch for changes in files.
+Use `gulp deployM2` to make a snapshot to local Maven with the resources.
+
+### Install
+Use `gulp installM2` to upload a jar with the resources to Maven repository.
 
 ### Build using Docker
 

@@ -1,0 +1,8 @@
+{
+    "groupId"      : "com.despegar.library",
+    "artifactId"   : "doc",
+    "buildDir"     : "jar",
+    "finalName"    : "doc",
+    "type"         : "jar",
+    "fileEncoding" : "utf-8"
+}
