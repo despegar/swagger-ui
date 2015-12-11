@@ -4,7 +4,7 @@
   "contributors": [
   ],
   "description": "Despegar's Swagger UI fork. Is a dependency-free collection of HTML, JavaScript, and CSS assets that dynamically generate beautiful documentation from a Swagger-compliant API",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "homepage": "http://api.despegar.com",
   "license": "Apache-2.0",
   "main": "dist/swagger-ui.js",
