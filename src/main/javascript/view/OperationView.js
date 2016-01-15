@@ -303,6 +303,10 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
       if ( inp ){
         inp.val(defaultVal);
       }
+      inp = $('select[name='+param.name+']', el);
+      if ( inp ){
+        inp.val(defaultVal);
+      }
       inp = $('textarea[name='+param.name+']', el);
       if ( inp ){
         inp.val(defaultVal);

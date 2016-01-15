@@ -18,6 +18,7 @@ SwaggerUi.Views.RequestExampleView = Backbone.View.extend({
     for (var uriParamName in this.model.uriParams) {
       if (this.model.uriParams.hasOwnProperty(uriParamName)) {
         $('input[name='+uriParamName+']', this.options.parametersView).val(this.model.uriParams[uriParamName]);
+        $('select[name='+uriParamName+']', this.options.parametersView).val(this.model.uriParams[uriParamName]);
       }
     }
 
