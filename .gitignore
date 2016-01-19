@@ -3,6 +3,8 @@ dist/
 *.ipr
 *.iml
 *.iws
+*.flags.json
+npm-debug.log
 web/
 lib/*.zip
 version.properties
@@ -14,3 +16,5 @@ node_modules/*
 dist/*
 /nbproject/private/
 jar/*
+dist/specs/
+test/specs/local/
