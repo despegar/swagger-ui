@@ -15,6 +15,7 @@ var connect = require('gulp-connect');
 var header = require('gulp-header');
 var order = require('gulp-order');
 var jshint = require('gulp-jshint');
+var bump = require('gulp-bump');
 var maven = require('gulp-maven-deploy');
 var pkg = require('./package.json');
 
@@ -202,22 +203,50 @@ gulp.task('moveToJar', ['dist', 'copy'], function() {
 });
 
 gulp.task('deployM2', ['clean', 'moveToJar'], function(){
-    setTimeout(function() {
-	gulp.src('./jar')
-    .pipe(maven.deploy({
-		'config' : mavenConfig
-    }))
-	},2000);
+	upload('snapshots', true);
 });
 
-gulp.task('installM2', ['clean', 'moveToJar'], function(){
-	setTimeout(function() {
-    gulp.src('./jar')
-    .pipe(maven.install({
-		'config' : mavenLocal
-    }))
-	},2000);
+gulp.task('releaseM2', ['clean', 'moveToJar'], function(){
+	upload('releases', false);
 });
+
+function upload(repositoryName, snapshot){
+    setTimeout(function() {
+	mavenConfig.snapshot=snapshot;
+	mavenConfig['repositories'] = mavenConfig['repositories'].filter(function (obj){
+		return obj.id == repositoryName;
+	});
+	if ( !snapshot ){
+		gulp.src('./package.json').pipe(bump())
+		  .pipe(gulp.dest('./')).on('end',function(){
+			doUpload(repositoryName, mavenConfig);
+		});
+	}else{
+		installSnapshot();
+		doUpload(repositoryName, mavenConfig);
+	}
+    },2000);
+}
+
+function doUpload(repositoryName, mavenConfig){
+	gulp.src('./jar').pipe(maven.deploy({
+		'config' : mavenConfig
+	}, function(err){
+	   if(err === null){
+	       console.log("Done deploying to "+repositoryName);
+	   }
+    	}));
+}
+
+gulp.task('installM2', ['clean', 'moveToJar'], function(){
+	setTimeout(function() { installSnapshot(); },2000);
+});
+
+function installSnapshot(){
+    gulp.src('./jar').pipe(maven.install({
+	'config' : mavenLocal
+    }))
+}
 
 gulp.task('dev', ['default'], function () {
   gulp.start('serve');
