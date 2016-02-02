@@ -90,7 +90,21 @@ SwaggerUi.Views.OperationView = Backbone.View.extend({
     if (!isMethodSubmissionSupported) {
       this.model.isReadOnly = true;
     }
-    this.model.sandboxable = this.model.operation['x-sandbox'];
+
+    this.model.badges = [];
+    this.model.operation['x-sandbox'] = this.model.operation['x-sandbox'] || false;
+    if ( this.model.operation['x-sandbox'] ){
+      this.model.badges.push({c:'sandbox', t:'Support sandbox', l:'S'});
+    }
+    this.model.operation['x-deprecated'] = this.model.operation['x-deprecated'] || false;
+    if ( this.model.operation['x-deprecated'] ){
+      this.model.badges.push({c:'deprecated', t:'Deprecated', l:'D'});
+    }
+    this.model.operation['x-validated'] = typeof this.model.operation['x-validated'] !== 'undefined' ? this.model.operation['x-validated'] : true;
+    if ( !this.model.operation['x-validated'] ){
+      this.model.badges.push({c:'unvalidated', t:'Unvalidated', l:'U'});
+    }
+
     this.model.description = this.model.description || this.model.notes;
     this.model.oauth = null;
     modelAuths = this.model.authorizations || this.model.security;
