@@ -82,7 +82,7 @@
 .swagger-section pre .vhdl .attribute,
 .swagger-section pre .clojure .attribute,
 .swagger-section pre .coffeescript .property {
-  color: #8888ff;
+  color: #88F;
 }
 .swagger-section pre .keyword,
 .swagger-section pre .id,
@@ -120,10 +120,72 @@
 .swagger-section pre .xml .cdata {
   opacity: 0.5;
 }
+.swagger-section .hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #F0F0F0;
+}
+.swagger-section .hljs,
+.swagger-section .hljs-subst {
+  color: #444;
+}
+.swagger-section .hljs-keyword,
+.swagger-section .hljs-attribute,
+.swagger-section .hljs-selector-tag,
+.swagger-section .hljs-meta-keyword,
+.swagger-section .hljs-doctag,
+.swagger-section .hljs-name {
+  font-weight: bold;
+}
+.swagger-section .hljs-built_in,
+.swagger-section .hljs-literal,
+.swagger-section .hljs-bullet,
+.swagger-section .hljs-code,
+.swagger-section .hljs-addition {
+  color: #1F811F;
+}
+.swagger-section .hljs-regexp,
+.swagger-section .hljs-symbol,
+.swagger-section .hljs-variable,
+.swagger-section .hljs-template-variable,
+.swagger-section .hljs-link,
+.swagger-section .hljs-selector-attr,
+.swagger-section .hljs-selector-pseudo {
+  color: #BC6060;
+}
+.swagger-section .hljs-type,
+.swagger-section .hljs-string,
+.swagger-section .hljs-number,
+.swagger-section .hljs-selector-id,
+.swagger-section .hljs-selector-class,
+.swagger-section .hljs-quote,
+.swagger-section .hljs-template-tag,
+.swagger-section .hljs-deletion {
+  color: #880000;
+}
+.swagger-section .hljs-title,
+.swagger-section .hljs-section {
+  color: #880000;
+  font-weight: bold;
+}
+.swagger-section .hljs-comment {
+  color: #888888;
+}
+.swagger-section .hljs-meta {
+  color: #2B6EA1;
+}
+.swagger-section .hljs-emphasis {
+  font-style: italic;
+}
+.swagger-section .hljs-strong {
+  font-weight: bold;
+}
 .swagger-section .swagger-ui-wrap {
   line-height: 1;
   font-family: "Droid Sans", sans-serif;
-  max-width: 1502px;
+  min-width: 760px;
+  max-width: 960px;
   margin-left: auto;
   margin-right: auto;
   /* JSONEditor specific styling */
@@ -147,10 +209,6 @@
 .swagger-section .swagger-ui-wrap blockquote:before,
 .swagger-section .swagger-ui-wrap blockquote:after {
   content: none;
-}
-.swagger-section .swagger-ui-wrap div.apikeydiv {
-  display: inline;
-  padding-left: 20px;
 }
 .swagger-section .swagger-ui-wrap .heading_with_menu h1,
 .swagger-section .swagger-ui-wrap .heading_with_menu h2,
@@ -274,17 +332,13 @@
 .swagger-section .swagger-ui-wrap .icon-btn {
   cursor: pointer;
 }
-.swagger-section .swagger-ui-wrap .info {
-  padding: 0px 20px;
-}
 .swagger-section .swagger-ui-wrap .info_title {
   padding-bottom: 10px;
   font-weight: bold;
   font-size: 25px;
 }
 .swagger-section .swagger-ui-wrap .footer {
-  padding: 0px 20px;
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 .swagger-section .swagger-ui-wrap p.big,
 .swagger-section .swagger-ui-wrap div.big p {
@@ -373,6 +427,7 @@
 }
 .swagger-section .swagger-ui-wrap .model-signature ul.signature-nav {
   display: block;
+  min-width: 230px;
   margin: 0;
   padding: 0;
 }
@@ -619,7 +674,6 @@
 .swagger-section .swagger-ui-wrap ul#resources {
   font-family: "Droid Sans", sans-serif;
   font-size: 0.9em;
-  padding: 0px 20px;
 }
 .swagger-section .swagger-ui-wrap ul#resources li.resource {
   border-bottom: 1px solid #dddddd;
@@ -733,15 +787,11 @@
   color: black;
   text-decoration: none;
 }
+.swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.path a.toggleOperation.deprecated {
+  text-decoration: line-through;
+}
 .swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.path a:hover {
   text-decoration: underline;
-}
-.swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.badge {
-  background-color: #e39052;
-  color: #fff;
-  text-decoration: none;
-  padding: .1em .4em;
-  vertical-align: middle;
 }
 .swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.http_method a {
   text-transform: uppercase;
@@ -824,7 +874,7 @@
   padding: 6px 8px;
 }
 .swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.content div.sandbox_header span.response_throbber {
-  background-image: url('../img/throbber.gif');
+  background-image: url('../images/throbber.gif');
   width: 128px;
   height: 16px;
   display: block;
@@ -1114,171 +1164,6 @@
 .swagger-section .swagger-ui-wrap .operation-status td.markdown > p:last-child {
   padding-bottom: 0;
 }
-.swagger-section .swagger-ui-wrap ul.operation-request-examples {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-  text-align: center;
-}
-.swagger-section .swagger-ui-wrap ul.operation-request-examples li {
-  margin: 6px 4px;
-}
-.swagger-section .swagger-ui-wrap ul.operation-request-examples li.get {
-  background-color: #0f6ab4;
-}
-.swagger-section .swagger-ui-wrap ul.operation-request-examples li.post {
-  background-color: #10a54a;
-}
-.swagger-section .swagger-ui-wrap ul.operation-request-examples li.put {
-  background-color: #c5862b;
-}
-.swagger-section .swagger-ui-wrap ul.operation-request-examples li.patch {
-  background-color: #D38042;
-}
-.swagger-section .swagger-ui-wrap ul.operation-request-examples li.delete {
-  background-color: #a41e22;
-}
-.swagger-section .swagger-ui-wrap ul.operation-request-examples li.badge a {
-  color: #fff;
-  text-decoration: none;
-  padding: .2em 1em;
-}
-.swagger-section .swagger-ui-wrap ul.operation-request-examples li a:hover {
-  /*  background-color: #369; */
-}
-.swagger-section .swagger-ui-wrap .btn-restore {
-  margin-left: 10px;
-}
-.swagger-section .swagger-ui-wrap .btn-restore.get {
-  background-color: #0f6ab4;
-  background-image: -moz-linear-gradient(top, #c3d9ec, #0f6ab4);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c3d9ec), to(#0f6ab4));
-  background-image: -webkit-linear-gradient(top, #c3d9ec, #0f6ab4);
-  background-image: -o-linear-gradient(top, #c3d9ec, #0f6ab4);
-  background-image: linear-gradient(to bottom, #c3d9ec, #0f6ab4);
-  background-repeat: repeat-x;
-  border-color: #0f6ab4 #0f6ab4 #1f6377;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc3d9ec', endColorstr='#ff0f6ab4', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
-.swagger-section .swagger-ui-wrap .btn-restore.get:hover,
-.swagger-section .swagger-ui-wrap .btn-restore.get:focus,
-.swagger-section .swagger-ui-wrap .btn-restore.get:active,
-.swagger-section .swagger-ui-wrap .btn-restore.get.active,
-.swagger-section .swagger-ui-wrap .btn-restore.get.disabled,
-.swagger-section .swagger-ui-wrap .btn-restore.get[disabled] {
-  color: #ffffff;
-  background-color: #0f6ab4;
-}
-.swagger-section .swagger-ui-wrap .btn-restore.get:active,
-.swagger-section .swagger-ui-wrap .btn-restore.get.active {
-  background-color: #0f4a94;
-}
-.swagger-section .swagger-ui-wrap .btn-restore.post {
-  background-color: #10a54a;
-  background-image: -moz-linear-gradient(top, #c3e8d1, #10a54a);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#c3e8d1), to(#10a54a));
-  background-image: -webkit-linear-gradient(top, #c3e8d1, #10a54a);
-  background-image: -o-linear-gradient(top, #c3e8d1, #10a54a);
-  background-image: linear-gradient(to bottom, #c3e8d1, #10a54a);
-  background-repeat: repeat-x;
-  border-color: #10a54a #10a54a #1f6377;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffc3e8d1', endColorstr='#ff10a54a', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
-.swagger-section .swagger-ui-wrap .btn-restore.post:hover,
-.swagger-section .swagger-ui-wrap .btn-restore.post:focus,
-.swagger-section .swagger-ui-wrap .btn-restore.post:active,
-.swagger-section .swagger-ui-wrap .btn-restore.post.active,
-.swagger-section .swagger-ui-wrap .btn-restore.post.disabled,
-.swagger-section .swagger-ui-wrap .btn-restore.post[disabled] {
-  color: #ffffff;
-  background-color: #10a54a;
-}
-.swagger-section .swagger-ui-wrap .btn-restore.post:active,
-.swagger-section .swagger-ui-wrap .btn-restore.post.active {
-  background-color: #00852a;
-}
-.swagger-section .swagger-ui-wrap .btn-restore.put {
-  background-color: #c5862b;
-  background-image: -moz-linear-gradient(top, #f0e0ca, #c5862b);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f0e0ca), to(#c5862b));
-  background-image: -webkit-linear-gradient(top, #f0e0ca, #c5862b);
-  background-image: -o-linear-gradient(top, #f0e0ca, #c5862b);
-  background-image: linear-gradient(to bottom, #f0e0ca, #c5862b);
-  background-repeat: repeat-x;
-  border-color: #c5862b #c5862b #1f6377;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f0e0ca', endColorstr='#ffc5862b', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
-.swagger-section .swagger-ui-wrap .btn-restore.put:hover,
-.swagger-section .swagger-ui-wrap .btn-restore.put:focus,
-.swagger-section .swagger-ui-wrap .btn-restore.put:active,
-.swagger-section .swagger-ui-wrap .btn-restore.put.active,
-.swagger-section .swagger-ui-wrap .btn-restore.put.disabled,
-.swagger-section .swagger-ui-wrap .btn-restore.put[disabled] {
-  color: #ffffff;
-  background-color: #c5862b;
-}
-.swagger-section .swagger-ui-wrap .btn-restore.put:active,
-.swagger-section .swagger-ui-wrap .btn-restore.put.active {
-  background-color: #a5660b;
-}
-.swagger-section .swagger-ui-wrap .btn-restore.patch {
-  background-color: #D38042;
-  background-image: -moz-linear-gradient(top, #f5d5c3, #d38042);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5d5c3), to(#d38042));
-  background-image: -webkit-linear-gradient(top, #f5d5c3, #d38042);
-  background-image: -o-linear-gradient(top, #f5d5c3, #d38042);
-  background-image: linear-gradient(to bottom, #f5d5c3, #d38042);
-  background-repeat: repeat-x;
-  border-color: #D38042 #D38042 #1f6377;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffF5D5C3', endColorstr='#ffD38042', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
-.swagger-section .swagger-ui-wrap .btn-restore.patch:hover,
-.swagger-section .swagger-ui-wrap .btn-restore.patch:focus,
-.swagger-section .swagger-ui-wrap .btn-restore.patch:active,
-.swagger-section .swagger-ui-wrap .btn-restore.patch.active,
-.swagger-section .swagger-ui-wrap .btn-restore.patch.disabled,
-.swagger-section .swagger-ui-wrap .btn-restore.patch[disabled] {
-  color: #ffffff;
-  background-color: #D38042;
-}
-.swagger-section .swagger-ui-wrap .btn-restore.patch:active,
-.swagger-section .swagger-ui-wrap .btn-restore.patch.active {
-  background-color: #A36022;
-}
-.swagger-section .swagger-ui-wrap .btn-restore.delete {
-  background-color: #a41e22;
-  background-image: -moz-linear-gradient(top, #e8c6c7, #a41e22);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#e8c6c7), to(#a41e22));
-  background-image: -webkit-linear-gradient(top, #e8c6c7, #a41e22);
-  background-image: -o-linear-gradient(top, #e8c6c7, #a41e22);
-  background-image: linear-gradient(to bottom, #e8c6c7, #a41e22);
-  background-repeat: repeat-x;
-  border-color: #a41e22 #a41e22 #1f6377;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffe8c6c7', endColorstr='#ffa41e22', GradientType=0);
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-}
-.swagger-section .swagger-ui-wrap .btn-restore.delete:hover,
-.swagger-section .swagger-ui-wrap .btn-restore.delete:focus,
-.swagger-section .swagger-ui-wrap .btn-restore.delete:active,
-.swagger-section .swagger-ui-wrap .btn-restore.delete.active,
-.swagger-section .swagger-ui-wrap .btn-restore.delete.disabled,
-.swagger-section .swagger-ui-wrap .btn-restore.delete[disabled] {
-  color: #ffffff;
-  background-color: #a41e22;
-}
-.swagger-section .swagger-ui-wrap .btn-restore.delete:active,
-.swagger-section .swagger-ui-wrap .btn-restore.delete.active {
-  background-color: #840e02;
-}
 .swagger-section .title {
   font-style: bold;
 }
@@ -1296,18 +1181,122 @@
 }
 .swagger-section .oauth_submit {
   text-align: center;
+  display: inline-block;
+}
+.swagger-section .authorize-wrapper {
+  margin: 15px 0 10px;
+}
+.swagger-section .authorize-wrapper_operation {
+  float: right;
+}
+.swagger-section .authorize__btn:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.swagger-section .authorize__btn_operation:hover .authorize-scopes {
+  display: block;
+}
+.swagger-section .authorize-scopes {
+  position: absolute;
+  margin-top: 20px;
+  background: #FFF;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: none;
+  font-size: 13px;
+  max-width: 300px;
+  line-height: 30px;
+  color: black;
+  padding: 5px;
+}
+.swagger-section .authorize-scopes .authorize__scope {
+  text-decoration: none;
+}
+.swagger-section .authorize__btn_operation {
+  height: 18px;
+  vertical-align: middle;
+  display: inline-block;
+  background: url(../images/explorer_icons.png) no-repeat;
+}
+.swagger-section .authorize__btn_operation_login {
+  background-position: 0 0;
+  width: 18px;
+  margin-top: -6px;
+  margin-left: 4px;
+}
+.swagger-section .authorize__btn_operation_logout {
+  background-position: -30px 0;
+  width: 18px;
+  margin-top: -6px;
+  margin-left: 4px;
+}
+.swagger-section #auth_container {
+  color: #fff;
+  display: inline-block;
+  border: none;
+  padding: 5px;
+  width: 87px;
+  height: 13px;
+}
+.swagger-section #auth_container .authorize__btn {
+  color: #fff;
+}
+.swagger-section .auth_container {
+  padding: 0 0 10px;
+  margin-bottom: 5px;
+  border-bottom: solid 1px #CCC;
+  font-size: 0.9em;
+}
+.swagger-section .auth_container .auth__title {
+  color: #547f00;
+  font-size: 1.2em;
+}
+.swagger-section .auth_container .basic_auth__label {
+  display: inline-block;
+  width: 60px;
+}
+.swagger-section .auth_container .auth__description {
+  color: #999999;
+  margin-bottom: 5px;
+}
+.swagger-section .auth_container .auth__button {
+  margin-top: 10px;
+  height: 30px;
+}
+.swagger-section .auth_container .key_auth__field {
+  margin: 5px 0;
+}
+.swagger-section .auth_container .key_auth__label {
+  display: inline-block;
+  width: 60px;
 }
 .swagger-section .api-popup-dialog {
-  z-index: 10000;
   position: absolute;
+  display: none;
+}
+.swagger-section .api-popup-dialog-wrapper {
+  z-index: 1000;
   width: 500px;
   background: #FFF;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  display: none;
   font-size: 13px;
   color: #777;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.swagger-section .api-popup-dialog-shadow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.2;
+  background-color: gray;
+  z-index: 900;
 }
 .swagger-section .api-popup-dialog .api-popup-title {
   font-size: 24px;
@@ -1320,6 +1309,10 @@
 .swagger-section .api-popup-dialog .error-msg {
   padding-left: 5px;
   padding-bottom: 5px;
+}
+.swagger-section .api-popup-dialog .api-popup-content {
+  max-height: 500px;
+  overflow-y: auto;
 }
 .swagger-section .api-popup-dialog .api-popup-authbtn {
   height: 30px;

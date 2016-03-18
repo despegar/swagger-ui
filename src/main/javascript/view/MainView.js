@@ -14,6 +14,7 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
 
     this.router = opts.router;
 
+    document.addEventListener('click', this.onLinkClick, true);
     // Sort APIs
     if (opts.swaggerOptions.apisSorter) {
       sorterOption = opts.swaggerOptions.apisSorter;
@@ -81,26 +82,9 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
 
   },
 
-  render: function(){
-    if (this.model.securityDefinitions) {
-      for (var name in this.model.securityDefinitions) {
-        var auth = this.model.securityDefinitions[name];
-        var button;
-
-        if (auth.type === 'apiKey' && $('#apikey_button').length === 0) {
-          button = new SwaggerUi.Views.ApiKeyButton({model: auth, router:  this.router}).render().el;
-          $('.auth_main_container').append(button);
-        }
-
-        if (auth.type === 'basicAuth' && $('#basic_auth_button').length === 0) {
-          button = new SwaggerUi.Views.BasicAuthButton({model: auth, router: this.router}).render().el;
-          $('.auth_main_container').append(button);
-        }
-      }
-    }
-
-    // Render the outer container for resources
+  render: function () {
     $(this.el).html(Handlebars.templates.main(this.model));
+    this.model.securityDefinitions = this.model.securityDefinitions || {};
 
     // Render each resource
 
@@ -148,5 +132,15 @@ SwaggerUi.Views.MainView = Backbone.View.extend({
 
   clear: function(){
     $(this.el).html('');
+  },
+
+  onLinkClick: function (e) {
+    var el = e.target;
+    if (el.tagName === 'A' && el.href) {
+      if (location.hostname !== el.hostname || location.port !== el.port) {
+        e.preventDefault();
+        window.open(el.href, '_blank');
+      }
+    }
   }
 });
