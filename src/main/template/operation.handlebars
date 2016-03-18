@@ -8,9 +8,9 @@
           <span class='path'>
           <a href='#!/{{encodedParentId}}/{{nickname}}' class="toggleOperation {{#if deprecated}}deprecated{{/if}}">{{path}}</a>
           </span>
-          {{#if sandboxable}}
-            <span class='badge' title='Supports sandbox'>S</span>
-          {{/if}}
+          {{#each badges}}
+            <span class='badge {{this.c}}' title='{{this.t}}'>{{this.l}}</span>
+          {{/each}}
         </h3>
         <ul class='options'>
           <li>

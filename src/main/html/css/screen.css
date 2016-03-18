@@ -803,11 +803,20 @@
   text-decoration: underline;
 }
 .swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.badge {
-  background-color: #e39052;
+  background-color: #1c1c1c;
   color: #fff;
   text-decoration: none;
   padding: .1em .4em;
   vertical-align: middle;
+}
+.swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.badge.sandbox {
+  background-color: #e39052;
+}
+.swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.badge.deprecated {
+  background-color: #c00;
+}
+.swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.badge.unvalidated {
+  background-color: #800080;
 }
 .swagger-section .swagger-ui-wrap ul#resources li.resource ul.endpoints li.endpoint ul.operations li.operation div.heading h3 span.http_method a {
   text-transform: uppercase;
@@ -1295,11 +1304,11 @@
 }
 .swagger-section .swagger-ui-wrap .btn-restore.patch {
   background-color: #D38042;
-  background-image: -moz-linear-gradient(top, #f5d5c3, #d38042);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5d5c3), to(#d38042));
-  background-image: -webkit-linear-gradient(top, #f5d5c3, #d38042);
-  background-image: -o-linear-gradient(top, #f5d5c3, #d38042);
-  background-image: linear-gradient(to bottom, #f5d5c3, #d38042);
+  background-image: -moz-linear-gradient(top, #F5D5C3, #D38042);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#F5D5C3), to(#D38042));
+  background-image: -webkit-linear-gradient(top, #F5D5C3, #D38042);
+  background-image: -o-linear-gradient(top, #F5D5C3, #D38042);
+  background-image: linear-gradient(to bottom, #F5D5C3, #D38042);
   background-repeat: repeat-x;
   border-color: #D38042 #D38042 #1f6377;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
